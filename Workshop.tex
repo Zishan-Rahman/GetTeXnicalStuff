@@ -1,0 +1,582 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+%\beamerdefaultoverlayspecification{<+->}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{listings}
+%\usepackage[T1]{fontenc} % https://tex.stackexchange.com/a/52535
+\usepackage[normalem]{ulem} % https://tex.stackexchange.com/a/23712
+\title[Get \TeX{nical}]{Get \TeX{nical}\newline{The Very Basic \TeX{niques} of \LaTeX}}
+\subtitle[\LaTeX \TeX{niques}]{Use \LaTeX{} to make articles, books, formulas and even slideshows!}
+\author{Zishan Rahman}
+\institute[KCL]{King's College London\newline{}UEL CDT Maker Club Takeover}
+\date{August 2025}
+\newcommand{\biggap}{\newline{}\newline{}}
+\newcommand{\questeq}{=^{?}} % https://tex.stackexchange.com/a/74132
+\newcommand{\questequiv}{\equiv^{?}} % https://tex.stackexchange.com/a/74132
+\newcommand{\defeq}{\stackrel{\mathclap{\normalfont\mbox{def}}}{=}} % https://tex.stackexchange.com/a/74132
+\newcommand{\crewriheader}{Creative writing and \LaTeX{} testing exercise}
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+\hypersetup{
+	colorlinks=true
+}
+\begin{document}
+	\frame{\titlepage}
+	
+	\section{Introductions}
+	
+	\begin{frame}
+		\frametitle{Who am I?}
+		\begin{figure}[h]
+			\includegraphics[scale=0.13]{me}
+			\centering
+			\label{fig:me}
+		\end{figure}
+		\begin{itemize}
+			\item<1-> PhD student at KCL (started February 2024)
+			\item<2-> Previously completed Computer Science BSc (First Class Honours!) at KCL in 2023 (started September 2020)
+			\item<3-> Learnt \LaTeX{} in 2022-2023 to write my Bachelors thesis
+			\item<4-> Have since used \LaTeX{} to write reports, papers, CVs and presentations 
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{What is \LaTeX{?}}
+		\LaTeX{} is a \textit{typesetting} system. \pause This means it defines how text is laid out on a page or slide. \pause Unlike word processors (e.g. Microsoft Word, LibreOffice Writer), which use a ``what-you-see-is-what-you-get" editing style, what you see in \LaTeX{} and what you get with \LaTeX{} typically end up looking quite different from each other. \pause You \textit{could} call it some kind of ``code", but it isn't a programming language. \pause It simply \textit{defines} how to produce the document with \LaTeX. \pause The \LaTeX{} compiler \textit{produces} the document for you. You make and save your changes, then you run the compiler each time to get an updated version of your document.\pause\biggap
+		
+		While \LaTeX{} sees greater use in academia, particularly with conference and journal papers (it's especially good for mathematical formulae), it's so vast and flexible that it can effectively be used for most documents, whether you're in academia or not, including books, CVs and even presentations!
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{What we will cover}
+		\begin{enumerate}
+			\item<1-> Setting up an Overleaf account
+			\item<2-> Write a basic \LaTeX{} chapter
+			\item<3-> Lists
+			\item<4-> Figures for adding images to your documents
+			\item<5-> Math(s) mode
+			\item<6-> Special characters
+			\item<7-> Little bit of Bib\TeX
+			\item<8-> Beamer for presentations
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{What we will \textbf{not} cover}
+		\begin{enumerate}
+			\item<1-> Graphs
+			\item<2-> Other complex things
+			\item<3-> Bib\TeX{} in \textit{depth}
+			\item<4-> \LaTeX{} for CVs
+			\item<5-> Changing/Configuring fonts and \LaTeX{} document styles
+			\item<6-> Tables, as they are too complex to type out in \LaTeX{}; I will show you a tool you can use to design your own tables and convert to \LaTeX{}
+		\end{enumerate}
+	\end{frame}
+	
+	\section{Set Up}
+	
+	\begin{frame}
+		\frametitle{About Overleaf and Editing \LaTeX{}}
+		To write and compile a \LaTeX{} document, you need: \pause
+		\begin{enumerate}
+			\item A \LaTeX{} compiler.\pause
+			\item A \LaTeX{} editor.
+		\end{enumerate}
+		\pause
+		Overleaf is a remote/online \LaTeX{} editing suite, complete with a distribution (a compiler and some packages). \pause \LaTeX{} compilers are usually downloaded as part of a larger distribution with many packages (i.e. \TeX{} Live can be over 5GB in size), so using Overleaf takes the burden off of having to download all of that for the sake of this workshop.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Setting up an Overleaf Account}
+		Overleaf has an intuitive user interface that should allow you to set up a new LaTeX project and start working right away!\pause\biggap
+		Before you start working with Overleaf, though, you need to set up an account! \pause\biggap
+		To do so, you can either:
+		\begin{itemize}
+			\item Create an account with your own username, email address and password.\pause
+			\item Log in with your Google account.
+		\end{itemize}
+	\end{frame}
+	
+	\section{Writing your first \LaTeX{} document}
+	
+	\begin{frame}[fragile]
+		\frametitle{Setting up a \LaTeX{} document}
+		Each \LaTeX{} document (file extension \verb|.tex|) has a \verb|class| attached to it.
+		The class declaration is written like so:
+		\begin{lstlisting}
+		\documentclass{class}
+		\end{lstlisting}
+		This tells the \LaTeX{} compiler to format the document in a certain way.\pause\biggap
+		The \verb|class| can be, for example: \pause
+		\begin{itemize}
+			\item \verb|article| \pause
+			\item \verb|report| \pause
+			\item \verb|book| \pause
+			\item \verb|beamer|, for presentations
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{A basic \LaTeX{} document}
+		We'll be using \verb|article| for this first example, like so:
+		\begin{lstlisting}
+		\documentclass{article}
+		\end{lstlisting}
+		\pause
+		You also need a dedicated space to write your document within. \pause We set it like so (the commands \textit{before} all of this is called the \textbf{preamble}):
+		\begin{lstlisting}
+		\begin{document}
+			
+		\end{document}
+		\end{lstlisting}
+		\pause
+		We can then write anything we want in that document:
+		\begin{lstlisting}
+\documentclass{article}
+
+\begin{document}
+	The quick brown fox jumps over the lazy dog.
+\end{document}
+		\end{lstlisting}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Some basic formatting}
+		I won't go over \textit{everything} to do with formatting text in \LaTeX{}, but I \textit{will} go over some of the common formatting options you may use:
+		\begin{table}[]
+			\centering
+			\begin{tabular}{lll}
+				\verb|\textbf{text}|         & $\rightarrow$ & \textbf{text}         \\
+				\verb|\textit{text}|         & $\rightarrow$ & \textit{text}         \\
+				\verb|\underline{text}|      & $\rightarrow$ & \underline{text}      \\
+				\verb|\sout{text}|			 & $\rightarrow$ & \sout{text}			 \\
+				\verb|\TeX{}|                & $\rightarrow$ & \TeX{}                \\
+				\verb|\LaTeX{}|              & $\rightarrow$ & \LaTeX{}              \\
+				\verb|\newline{}|            & $\rightarrow$ & Line break            \\
+				\verb|\\|		             & $\rightarrow$ & Line break            \\
+				\verb|4\textsuperscript{th}| & $\rightarrow$ & 4\textsuperscript{th} \\
+				\verb|4$^{\text{th}}$|       & $\rightarrow$ & 4$^{\text{th}}$       
+			\end{tabular}
+			\label{tab:format}
+		\end{table}
+		More on those dollar signs in that last one later!
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Comments}
+		A useful thing you can do in \LaTeX{} is write \textit{comments}.\pause\biggap
+		These don't get passed into the compiler, so you can use them to write, for example, explanations for what certain commands do that you don't want to include in your main text.\pause\biggap
+		Comments begin with a percentage sign (\%) and end at the very end of the line where they began.\pause\biggap
+		For example:
+		\begin{lstlisting}
+  \textbf{Bold} % This command bolds the text.
+		\end{lstlisting}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Escaping special symbols}
+		Want to print out a symbol that \LaTeX{} uses for it's syntax? Sure, just escape it!\pause\biggap
+		
+		For example:
+		\begin{table}[]
+			\begin{tabular}{lll}
+				\verb|\textbackslash| & $\rightarrow$ & \textbackslash \\
+				\verb|\%| 			  & $\rightarrow$ & \%             \\
+				\verb|\&| 			  & $\rightarrow$ & \&			   \\
+				\verb|\$| 			  & $\rightarrow$ & \$			   \\
+				\verb|\#| 			  & $\rightarrow$ & \#			   \\
+			\end{tabular}
+		\end{table}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Headings}
+		You can also divide your text into chapters, sections, subsections and subsubsections, and \LaTeX{} will format them accordingly:
+		\begin{lstlisting}
+	\chapter{This is a chapter}
+	\section{This is a section}
+	\subsection{This is a subsection}
+	\subsubsection{This is a subsubsection}
+		\end{lstlisting}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{\crewriheader}
+		Now that you know how to set up a basic LaTeX document, it's time to start writing!\pause\\
+		Spend the next few minutes writing a number of sentences on \textit{anything}. \pause It can be a story, a journal, a recount, fiction, non-fiction, you name it! Just type it and compile your document regularly (Overleaf will recompile it every time you save it)! \pause\\
+		While you type and compile, each time, make notes of any quirks and compilation errors you see and/or get during this time. \pause You \textit{can} try and fix them if you want, but it's neither compulsory nor do I require you to understand them at this time. \pause\biggap
+		Once you're done, you'll feed back to me on:\pause
+		\begin{itemize}
+			\item How the \LaTeX{} writing experience was\pause
+			\item Any quirks you saw in the formatting and/or compilation of your \LaTeX{} document\pause
+			\item Any compilation errors and/or warnings you got\pause
+			\item \textit{Optionally}, what you wrote about
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Feedback on \MakeLowercase{\crewriheader}}
+		So$\ldots$ how did you get on? \pause
+		\begin{itemize}
+			\item How was it like to write and compile a \LaTeX{} document for the first time?\pause
+			\item Did the \LaTeX{} compiler format your document nicely?\pause
+			\item Were there any \textit{quirks} in the formatting?\pause
+			\item Any compilation warnings and/or errors?\pause
+			\item What did you write about? You don't have to say if you don't want to.\pause
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Beware of quirks!}
+		Unfortunately, just like word processors, \LaTeX{} has its own quirks. Be aware that this can happen, but don't let it put you off of using it.\pause\biggap
+		
+		I'll show you one quirk right now\pause{:}
+		\begin{table}[]
+			\centering
+			\begin{tabular}{lll}
+				\verb|``| & $\rightarrow$ & `` \\
+				\verb|"|  & $\rightarrow$ & "  \\
+			\end{tabular}
+		\end{table}
+		
+		(\verb|``| = two backticks)\biggap
+		
+		That's why you're quotes ended up like "this" and not ``this". Keep this in mind as you continue working with \LaTeX{}.
+	\end{frame}
+	
+	\section{Lists, Figures, Packages and Images}
+	
+	\begin{frame}[fragile]
+		\frametitle{Lists}
+		To add a bullet point list into your document, you set up a new \verb|itemize| environment and add \verb|\item|s to it\pause{}, like so:
+		\begin{lstlisting}
+\begin{itemize}
+	\item I am an item in a list!
+	\item I am another item in the same list!
+\end{itemize}
+		\end{lstlisting}\pause
+		This will render the following list:
+		\begin{itemize}
+			\item I am an item in a list!
+			\item I am another item in the same list!
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{List exercise}
+		Let's put this to action!\pause\biggap
+		Spend the next minute or so writing a list of things you like doing. \pause Hopefully, no weird stuff should happen (i.e. compilation warnings, errors etc.), but if anything weird \textit{does} happen, make a note of it and get back to me afterwards.
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Numbered lists}
+		To have your lists \textit{numbered} instead of bulleted, replace \verb|itemize| in your list environment with \verb|enumerate| (in both your \verb|begin| and \verb|end| declarations)\pause{}, like so:
+		\begin{lstlisting}
+\begin{enumerate}
+	\item I am the first item in the list!
+ 	\item I am the second item in the list!
+\end{enumerate}
+		\end{lstlisting}\pause
+		This will render the following list:
+		\begin{enumerate}
+			\item I am the first item in the list!
+			\item I am the second item in the list!
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Numbered list exercise}
+		Now, let's put \textit{this} into action as well!\pause\biggap
+		Spend the next few minutes writing either:
+		\begin{itemize}
+			\item A process described in order (i.e. a recipe, steps for doing something etc.)
+			\item A ranking of anything that won't cause offence (from, e.g., best to worst, tallest to highest etc.)
+		\end{itemize}\pause
+		Again, if anything weird happens when you try to compile it, make a note of it and get back to me afterwards. We will be feeding back on both this and the previous list exercise in the next slide.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Feedback on list and numbered list exercises}
+		So$\ldots$ how did you get on? \pause
+		\begin{itemize}
+			\item Did your \LaTeX{} experience change at all?\pause
+			\item Did the \LaTeX{} compiler format your lists nicely?\pause
+			\item What changed about \textit{how} you wrote?\pause
+			\item Were there any \textit{quirks} in the formatting?\pause
+			\item Any compilation warnings and/or errors?\pause
+			\item What did you write about? You don't have to say if you don't want to.\pause
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{(Very) Basic figures}
+		You start and end a figure like so (notice a pattern here):
+		\begin{lstlisting}
+	\begin{figure}[h]
+	 	\textbf{Stuff$\ldots$}
+	\end{figure}
+		\end{lstlisting}\pause
+		Which produces:
+		\begin{figure}[h]
+		  \textbf{Stuff$\ldots$}
+		\end{figure}\pause
+		A figure can be centred using the \verb|\centering| command within the figure itself:
+		\begin{lstlisting}
+	\begin{figure}[h]
+		\centering
+		\textbf{Stuff$\ldots$}
+	\end{figure}
+		\end{lstlisting}
+		\begin{figure}[h]
+			\centering
+			\textbf{Stuff$\ldots$}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Figure placement}
+		Notice that \verb|h|? \pause \LaTeX{} can place your figure within your document depending on how you want it:
+		\begin{table}[]
+			\centering
+			\begin{tabular}{lll}
+				\verb|[h]| & $\rightarrow$ & As it was placed in the \verb|.tex| file \\
+				\verb|[t]| & $\rightarrow$ & Top of page                              \\
+				\verb|[b]| & $\rightarrow$ & Bottom of page                           \\
+				\verb|[p]| & $\rightarrow$ & A separate page for figures (and tables) \\
+				\verb|[hb]| &
+				$\rightarrow$ &
+				\begin{tabular}[c]{@{}l@{}}Try placing it as it was placed in the \verb|.tex| file,\\ otherwise place at bottom of page. The above four\\ figure placement options can likewise be combined\\ in multiple ways. \verb|[hb]| is an example of just one way.\end{tabular}
+			\end{tabular}
+		\end{table}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Captions on figures}
+		A figure can also have a \verb|\caption{text}|:
+		\begin{lstlisting}
+	\begin{figure}[h]
+		\centering
+		\textbf{Stuff$\ldots$}
+		\caption{This is stuff!}
+	\end{figure}
+		\end{lstlisting}
+		\begin{figure}[h]
+			\centering
+			\textbf{Stuff$\ldots$}
+			\caption{This is stuff!}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Labels for figures}
+		You can even use a \verb|label{fig:label}| to easily refer to it using \verb|\ref{fig:label}| (like this: \ref{fig:stuff}). Make sure the \verb|\label{}| is placed \textit{after} the \verb|\caption{}|.
+		\begin{lstlisting}
+	\begin{figure}[h]
+		\centering
+		\textbf{Stuff$\ldots$}
+		\caption{This is stuff!}
+		\label{fig:stuff}
+	\end{figure}
+		\end{lstlisting}
+		\begin{figure}[h]
+			\centering
+			\textbf{Stuff$\ldots$}
+			\caption{This is stuff!}
+			\label{fig:stuff}
+		\end{figure}
+		In \verb|article|s, you can use \verb|\autoref{fig:label}| to have the text for that reference render to, for example, ``Figure 3".
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{One more thing on basic figures}
+		There's just \textit{one} more thing that a figure can take great advantage of$\ldots$\pause\biggap
+		$\ldots$\textbf{Images!}\pause\biggap
+		To replace our placeholder text (\textbf{Stuff$\ldots$}) in our figure with an image, we will use the \verb|graphicsx| package.
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{A note about packages}
+		\LaTeX{}, by itself, is very ``bare bones", so for things like images, hyperlinks and other things that are contained in many documents, we often import ``packages" that give us additional commands to use. \pause\biggap
+		
+		Importing a package in your \LaTeX{} document is as simple as writing \verb|\usepackage{package}| before your \verb|\begin{document}| statement, and you usually do \textbf{not} need to install the package separately, as it will be included in your \LaTeX{} distribution (such as \TeX{} Live and the one that Overleaf uses). That's \textit{why} they're so huge! \pause\biggap
+			
+		We'll be using a number of different packages to add things to our \LaTeX{} documents, so pay attention and keep your eyes on them!
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Adding an image to our figure}
+		First, add the following statement before your \verb|\begin{document}| declaration: \verb|\usepackage{graphicsx}|.\pause\\
+			
+		Then, replace the placeholder text with your image (either use one of your own or download one from the web), like so: \verb|\includegraphics{your_image}|. You don't need to explicitly define its file type; \verb|graphicsx| accepts most common image types, i.e. PNG, JPG et cetera.\pause\biggap
+		
+		For example, the image placement in Figure \ref{fig:me} was done like so:
+		\begin{lstlisting}
+	\begin{figure}[h]
+		\includegraphics[scale=0.13]{me}
+		\centering
+		\label{fig:me}
+	\end{figure}
+		\end{lstlisting}		
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Scaling images}
+		Noticed the \verb|[scale=0.13]|? \pause Some \LaTeX{} commands come with additional configuration options that can be added within a pair of square brackets before the curly ones. \pause The image file I used for Figure \ref{fig:me} is too large to be added to the slide without taking over everything, so I used the \verb|scale| argument to control its size (it takes a multiplier value which it applies to the image size). \pause If \textit{your} image is too large, I'd advise you do the same!
+	\end{frame}
+	
+	\section{Math Mode, Special Characters and Quirks}
+	
+	\begin{frame}[fragile]
+		\frametitle{Math mode}
+		Remember those dollar signs? \pause Those dollar signs put \LaTeX{} in \textbf{Math mode} for the things within them! \pause\biggap
+		
+		Math mode is for rendering simple and complex mathematical formulae. \pause For example, \verb|$ax^{2} + bx + c = 0$| renders to $ax^{2} + bx + c = 0$. You can use single dollar signs to easily place formulae in math mode ``inline" within your paragraphs. \pause\\
+		
+		To create \textit{dedicated} math mode placements, you can use double dollar signs (\$\$) at both ends.
+		
+		For example, \verb|$$ax^{2} + bx + c = 0$$| produces the following:
+		
+		$$ax^{2} + bx + c = 0$$
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Math mode - continued}
+		You can also define a dedicated maths environment as you'd define (e.g.) a document, which will require the \verb|mathtools| package:
+		
+		\begin{lstlisting}
+	\usepackage{mathtools}
+	...
+	\begin{math}
+		ax^{2} + bx + c = 0
+	\end{math}
+		\end{lstlisting}\pause
+		
+		This will produce:
+		
+		\begin{math}
+			ax^{2} + bx + c = 0
+		\end{math}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Special characters within math mode}
+		\LaTeX{} allows you to use special symbols using dedicated commands. \pause For example, instead of having to fetch out the ``therefore" symbol from the web and copy-pasting it into your document (or entering a Unicode value), you can type in \verb|$\therefore$| and \LaTeX{} will render it easily: $\therefore$ \pause
+		
+		You can then use it within your formulae. For example:
+		
+		\begin{lstlisting}
+\begin{math}
+	8 + 9 = 17\newline
+	\therefore 17 - 9 = 8
+\end{math}
+		\end{lstlisting}
+
+		\begin{math}
+			8 + 9 = 17\newline
+			\therefore 17 - 9 = 8
+		\end{math}\pause\biggap
+		
+		Some symbols can also be entered in \textit{normal} mode (for typing text). For example, \verb|\copyright| renders to \copyright{}, in both normal and math mode.
+	\end{frame}
+	
+	\section{Basic Bib\TeX{}}
+	
+	\begin{frame}[fragile]
+		\frametitle{A \textit{tiny} bit on Bib\TeX{}}
+		See those citations on Wikipedia articles? \pause You can do the same thing in \LaTeX{} using Bib\TeX{}! \pause\biggap
+		
+		Bib\TeX{} uses its own file with extension \verb|.bib|. Create one such file in your Overleaf project (ideally, for this workshop, in the same folder as your main \verb|.tex| file). Call it, for example, \verb|references.bib|. \pause
+		
+		Then, import the \verb|natbib| package (\verb|biber| is another citation package; we'll use \verb|natbib| for this workshop): \verb|\usepackage[square,sort,comma,numbers]{natbib}|.\pause
+		
+		Before you end your document, point Bib\TeX{} to your file. After your text, it will generate a bibliography containing your citations:
+		
+		\begin{lstlisting}
+		\bibliographystyle{plain}
+		\bibliography{references}
+		\end{lstlisting}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Your bibliography}
+		Bib\TeX{} files consist of one or more entries in \textit{this} form:
+		\begin{lstlisting}
+@misc{entryid,
+  year = {2025},
+  title = {{Get TeXNical}},
+  author = {{Rahman, Zishan}},
+  howpublished = {\url{https://www.example.com}}
+}
+		\end{lstlisting}
+		The \verb|\url{}| command does as explained (when printing the link, it embeds the URL so it can be clicked on and opened). For it to work properly, add \verb|\usepackage{hyperref}| to your preamble. \pause
+		To \textit{cite} the resource, use the \verb|\cite{id}| command (e.g. \verb|\cite{entryid}|). A number enclosed with square brackets will appear right where you made your citation (like this[1]). Your bibliography at the end will show what you cited next to that number. \pause Note that only references that \textit{actually get cited} will show up in your \LaTeX{} document's bibliography by default, so if you want them to show up, cite them.
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Title and Table of Contents}
+		Every book needs a title, author, publication date and list of chapters.
+		
+		The title, author and date you define in your \textbf{preamble}, like so:
+		\begin{lstlisting}
+		\title{Get \TeX{nical}}
+		\author{Zishan Rahman}
+		\date{2025}
+		\end{lstlisting}\pause
+		
+		As for \textit{making} the title and table of contents show up on your \LaTeX{} document, that couldn't be any simpler. \pause As soon as you begin your document:
+		\begin{lstlisting}
+		\maketitle
+		\tableofcontents
+		\end{lstlisting}
+		
+		There are similar commands for glossaries and indexes (which we're not covering how to make today): \verb|\makeglossary| and \verb|\makeindex|.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Exercise: Your first (very short) research article}
+		Time to do some (very basic and not very \textit{guided}) research! \pause\biggap
+		
+		Write about a topic that interests you so much you want to research into it. \pause It can be anything, it doesn't have to be serious. You don't even have to tell me what it is! \pause Just remember to include at least two citations of some sort. \pause You can cite anything from a news article to a YouTube video to even a meme (if you want)!\pause\biggap
+		
+		Research articles are typically quite long and wordy, but for this exercise, I only need you to write a paragraph or two. \pause Although your ``article" will be short, give it a title and put yourself down as an author. A table of contents wouldn't hurt either.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Feedback on short research article exercise}
+		So$\ldots$ how did you get on?
+		\begin{itemize}
+			\item How did you find making and citing Bib\TeX{} citations?\pause
+			\item Did the \LaTeX{} compiler format your lists nicely?\pause
+			\item What changed about \textit{how} you wrote?\pause
+			\item Were there any \textit{quirks} in the formatting?\pause
+			\item Any compilation warnings and/or errors?\pause
+			\item What did you write about? You don't have to say if you don't want to.\pause
+		\end{itemize}
+	\end{frame}
+	
+	\section{Beamer for Presentations}
+	
+	\section{And that's it!}
+	
+	\begin{frame}
+		\frametitle{Useful resources}
+		\begin{itemize}
+			\item \TeX{} StackExchange forum
+			\item Overleaf's \textit{own} \LaTeX{} tutorials (they're how \textbf{I} learnt \LaTeX{} back then)
+			\item r/\LaTeX{} Reddit forum
+			\item \href{https://www.tablesgenerator.com/}{Tables Generator for \LaTeX{}}
+			\item \href{https://en.wikibooks.org/wiki/LaTeX/Mathematics\#List_of_mathematical_symbols}{Wikibooks section listing all of the mathematical symbols you can use in \LaTeX{}, so that you don't have to remember them all.}
+			\item \href{https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}{The Comprehensive \LaTeX{} Symbols List}
+		\end{itemize}
+	\end{frame}
+\end{document}
