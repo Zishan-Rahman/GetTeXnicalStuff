@@ -659,6 +659,49 @@ to embed hyperlinks into text? \pause
 		\href{https://www.example.com}{Like this!}
 	\end{frame}
 	
+	\begin{frame}[fragile]
+		\frametitle{Tables of Contents in Beamer}
+		Sections in your slideshow can be defined just as you would do in articles, books et cetera.
+		\begin{lstlisting}
+	\section{title}
+		\end{lstlisting}
+		To create a table of contents based on those sections, add \textit{this} to your preamble (replace \verb|frim| with \verb|frame|; I had compilation errors with \verb|frame| for this slide): 
+		\begin{lstlisting}
+\AtBeginSection[]
+{
+	\begin{frim}
+		\frametitle{Table of Contents}
+		\tableofcontents[currentsection]
+	\end{frim}
+}
+		\end{lstlisting}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Final exercise for the day: Your first Beamer presentation}
+		Time for one more exercise before we end this workshop!\pause\biggap
+		
+		Create a short slideshow with \verb|beamer| on a topic of your choice!\pause\newline{}
+		
+		Have at least one frame other than the title slide, but other than that, the slideshow shouldn't be \textit{too} long.\pause\newline{}
+		
+		Include at least \textbf{one} figure containing an image.\pause\newline{}
+		\textit{Optionally}, include at least one formula.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Feedback on Beamer presentation exercise}
+		So$\ldots$ how did you get on?
+		\begin{itemize}
+			\item How did you find making your presentation in \LaTeX{} compared to PowerPoint or Impress et cetera?\pause
+			\item Did the \LaTeX{} compiler format your slides nicely?\pause
+			\item What changed about \textit{how} you wrote the content in each slide (if anything changed at all)?\pause
+			\item Were there any \textit{quirks} in the formatting?\pause
+			\item Any compilation warnings and/or errors?\pause
+			\item What did you write about? You don't have to say if you don't want to.\pause
+		\end{itemize}
+	\end{frame}
+	
 	\section{And that's it!}
 	
 	\begin{frame}
@@ -670,6 +713,26 @@ to embed hyperlinks into text? \pause
 			\item<4-> \href{https://www.tablesgenerator.com/}{Tables Generator for \LaTeX{}}
 			\item<5-> \href{https://en.wikibooks.org/wiki/LaTeX/Mathematics\#List_of_mathematical_symbols}{Wikibooks section listing all of the mathematical symbols you can use in \LaTeX{}, so that you don't have to remember them all.}
 			\item<6-> \href{https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}{The Comprehensive \LaTeX{} Symbols List}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Thanks for attending this workshop!}
+		I am on:
+		\begin{itemize}
+			\item \href{https://www.linkedin.com/in/zishan-rahman-6b0769210/}{LinkedIn}
+			\item \href{https://mastodon.social/@zishanrahman18}{Mastodon}
+			\item \href{https://bsky.app/@zishanrahman18}{BlueSky}
+			\item \href{https://www.instagram.com/zishanrahman18/}{Instagram}
+			\item \href{https://github.com/Zishan-Rahman}{GitHub} (\href{https://github.com/Zishan-Rahman/GetTeXnicalStuff}{I put the slides up there as well})
+			\item \href{https://zishan-rahman.github.io/}{My website} (including blog and project portfolio, currently working on updating it!)
+		\end{itemize}
+		Advice for you on \LaTeX{}:
+		\begin{itemize}
+			\item Practice, practice, practice
+			\item Try experimenting with different types of \LaTeX{} documents
+			\item Seek assistance for compilation errors and more about about specific \LaTeX{} and Bib\TeX{} problems and information.
+			\item Never give up!
 		\end{itemize}
 	\end{frame}
 \end{document}
