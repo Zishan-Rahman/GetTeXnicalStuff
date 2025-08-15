@@ -20,6 +20,7 @@
 \newcommand{\questequiv}{\equiv^{?}} % https://tex.stackexchange.com/a/74132
 \newcommand{\defeq}{\stackrel{\mathclap{\normalfont\mbox{def}}}{=}} % https://tex.stackexchange.com/a/74132
 \newcommand{\crewriheader}{Creative writing and \LaTeX{} testing exercise}
+\newcommand{\namething}[1]{My name is {#1}!}
 \AtBeginSection[]
 {
 	\begin{frame}
@@ -52,9 +53,24 @@
 	
 	\begin{frame}
 		\frametitle{What is \LaTeX{?}}
-		\LaTeX{} is a \textit{typesetting} system. \pause This means it defines how text is laid out on a page or slide. \pause Unlike word processors (e.g. Microsoft Word, LibreOffice Writer), which use a ``what-you-see-is-what-you-get" editing style, what you see in \LaTeX{} and what you get with \LaTeX{} typically end up looking quite different from each other. \pause You \textit{could} call it some kind of ``code", but it isn't a programming language. \pause It simply \textit{defines} how to produce the document with \LaTeX. \pause The \LaTeX{} compiler \textit{produces} the document for you. You make and save your changes, then you run the compiler each time to get an updated version of your document.\pause\biggap
+		\LaTeX{} is a \textit{typesetting} system (initially based on \TeX{}). \pause This means it defines how text is laid out on a page or slide. \pause Unlike word processors (e.g. Microsoft Word, LibreOffice Writer), which use a ``what-you-see-is-what-you-get" editing style, what you see in \LaTeX{} and what you get with \LaTeX{} typically end up looking quite different from each other. \pause You \textit{could} call it some kind of ``code", but it isn't a programming language. \pause It simply \textit{defines} how to produce the document with \LaTeX. \pause The \LaTeX{} compiler \textit{produces} the document for you. You make and save your changes, then you run the compiler each time to get an updated version of your document.\pause\biggap
 		
 		While \LaTeX{} sees greater use in academia, particularly with conference and journal papers (it's especially good for mathematical formulae), it's so vast and flexible that it can effectively be used for most documents, whether you're in academia or not, including books, CVs and even presentations!
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Why use \LaTeX{?}}
+		\begin{itemize}
+			\item<1-> \textbf{Multiple reasons!}
+			\item<2-> Produces high-quality, professional-looking output when compiled
+			\item<3-> Compiles straight to PDF (using \verb|pdflatex|)!
+			\item<4-> Can be easier and faster to ``code" in certain situations
+			\item<5-> Nicer to type out commands mathematical and other symbols than to have to fetch their Unicode representations and/or ALT codes (on Windows).
+			\item<6-> (Leading on from above) Handles mathematical formulae and tables cleanly in compiled output.
+			\item<7-> \textbf{\LaTeX{} neatly separates the content of the document from how it's formatted}
+			\item<8-> Easier to handle bibliographies and citations using Bib\TeX{}
+			\item<9-> Can handle multiple languages (including right-to-left written ones such as Arabic)
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}
@@ -197,6 +213,28 @@
 				\verb|\#| 			  & $\rightarrow$ & \#			   \\
 			\end{tabular}
 		\end{table}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Setting your own custom commands}
+		
+		Using \verb|\newcommand{cmd}{def}| in your preamble, you can define your own commands, for anything from easy shortcuts to larger stuff.\pause\biggap
+		
+		For example, here's a command this set of slides uses to create big gaps in-between paragraphs:
+		\begin{lstlisting}
+\newcommand{\biggap}{\newline{}\newline{}}
+		\end{lstlisting}\pause
+		
+		Your new command can also take in data that gets used by it:
+		\begin{lstlisting}
+\newcommand{command}[number_of_arguments]{definition}
+		\end{lstlisting}
+		
+		For example:
+		\begin{lstlisting}
+\newcommand{\namething}[1]{My name is {#1}!}
+		\end{lstlisting}
+		\verb|\namething{Zishan}| $\rightarrow$ \namething{Zishan}
 	\end{frame}
 	
 	\begin{frame}[fragile]
@@ -434,7 +472,7 @@
 		Noticed the \verb|[scale=0.13]|? \pause Some \LaTeX{} commands come with additional configuration options that can be added within a pair of square brackets before the curly ones. \pause The image file I used for Figure \ref{fig:me} is too large to be added to the slide without taking over everything, so I used the \verb|scale| argument to control its size (it takes a multiplier value which it applies to the image size). \pause If \textit{your} image is too large, I'd advise you do the same!
 	\end{frame}
 	
-	\section{Math Mode, Special Characters and Quirks}
+	\section{Math Mode, Special Characters and Verbatim Environments}
 	
 	\begin{frame}[fragile]
 		\frametitle{Math mode}
@@ -489,11 +527,21 @@
 		Some symbols can also be entered in \textit{normal} mode (for typing text). For example, \verb|\copyright| renders to \copyright{}, in both normal and math mode.
 	\end{frame}
 	
+	\begin{frame}[fragile]
+		\frametitle{Verbatim Environments}
+		Notice the different styles of text throughout this presentation for certain words and characters? \pause \verb|Like|
+		\begin{lstlisting}
+			this?
+		\end{lstlisting}\pause
+		Sometimes, you want to print certain characters and words \textit{as} they are without any of \LaTeX{}'s formatting. \pause To do that \textit{inline}, use the {\verb|\verb|}$||$ command (note the vertical bars we use instead of curly braces here; use math mode to type in the bars).\pause
+		Verbatim environments are also useful for code samples, for which we need a dedicated \verb|lstlisting| environment from the \verb|listings| package (which you create just as you'd create documents, dedicated math environments et cetera). \pause Syntax highlighting for most programming languages is supported here (i.e. \verb|\begin{lstlisting}[language=Python]|), with extensive configuration and customisability options for languages not supported out-of-the-box.
+	\end{frame}
+	
 	\section{Basic Bib\TeX{}}
 	
 	\begin{frame}[fragile]
 		\frametitle{A \textit{tiny} bit on Bib\TeX{}}
-		See those citations on Wikipedia articles? \pause You can do the same thing in \LaTeX{} using Bib\TeX{}! \pause\biggap
+		See those citations on Wikipedia articles? \pause You can do the same thing in \LaTeX{} using Bib\TeX{}! \pause
 		
 		Bib\TeX{} uses its own file with extension \verb|.bib|. Create one such file in your Overleaf project (ideally, for this workshop, in the same folder as your main \verb|.tex| file). Call it, for example, \verb|references.bib|. \pause
 		
@@ -505,6 +553,8 @@
 		\bibliographystyle{plain}
 		\bibliography{references}
 		\end{lstlisting}
+		
+		Types of Bib\TeX{} entries include \verb|article| (for journals), \verb|book|, \verb|manual| and \verb|inproceedings| (for conference proceedings). There's also a catch-all \verb|misc| type (used in the next slide) for entries that don't quite fit into the standard categories.
 	\end{frame}
 	
 	\begin{frame}[fragile]
@@ -557,7 +607,7 @@
 		\begin{itemize}
 			\item How did you find making and citing Bib\TeX{} citations?\pause
 			\item Did the \LaTeX{} compiler format them nicely?\pause
-			\item What changed about \textit{how} you wrote, now that you were writing a research article (well, \textit{paragraph})?\pause
+			\item What changed about \textit{how} you wrote, now that you were writing a research ``article" (well, \textit{paragraph(s)})?\pause
 			\item Were there any \textit{quirks} in the formatting?\pause
 			\item Any compilation warnings and/or errors?\pause
 			\item What did you write about? You don't have to say if you don't want to.\pause
@@ -566,17 +616,60 @@
 	
 	\section{Beamer for Presentations}
 	
+	\begin{frame}[fragile]
+		\frametitle{Beamer}
+		
+		Beamer is a document class meant specifically for making slideshows, much like the ones you'd see on Microsoft PowerPoint and/or LibreOffice Impress (only with less animations and transitions, given that your \LaTeX{} slides will typically compile to PDF). \pause\biggap
+		
+		In a new \verb|.tex| file, set the document class to \verb|beamer| at the very beginning of your preamble, then set the title, author and year as you did before (I'll show you later how to make a Beamer-specific table of contents). \pause Then, add the following to your document (within \verb|\begin{document}| and \verb|\end{document}|): \verb|\frame{\titlepage}|. This will make a title slide for you. \pause
+		
+		You might notice it looks a bit \textit{plain}. \pause That's why you can use one of Beamer's built-in \textit{themes} to add a bit more style to your slides. \pause I use the ``Madrid" theme, like so (in the preamble, after the document class declaration): \verb|\usetheme{Madrid}|
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{How Beamer Works}
+		Within your singular document, Beamer works with multiple ``frames", each of which connote 1 slide, including any pauses in-between (if there are any). \pause The slide count at the bottom refers to the number of \textit{frames}, while the number of \textit{overall} pages for the compiled PDF will consist of every frame and every pause in-between.\pause\biggap
+		
+		As I've demonstrated here, figures, math mode, verbatim environments and links can easily be embedded into your slide, and you'd do that just as you would in an article (for verbatim environments, start your frame like so: \verb|\begin{frame}[fragile]|). \pause You can even make citations and bibliographies on Beamer slides, though that's rarely done in practice and I'm not showing you how to do that here. \pause\biggap
+		
+		To add a pause to your Beamer frame couldn't be any simpler\pause{:} \verb|\pause|
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{Your first Beamer slide (well, \textit{frame})}
+		Set up your frame as described in the previous slide, then within that frame, put in:
+		\begin{lstlisting}
+\frametitle{My first frame}
+This is text in a frame! \pause
+I just paused my slide! \pause
+Did you know you could use \verb|\href{URL}{text}|
+to embed hyperlinks into text? \pause
+\href{https://www.example.com}{Like this!}
+		\end{lstlisting}
+		Don't forget to start your frame with \verb|\begin{frame}[fragile]| so you don't get compilation errors when trying to use \verb|\verb|!\newline{}
+		The results are in the next slide.
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{My first frame}
+		This is text in a frame! \pause
+		I just paused my slide! \pause
+		Did you know you could use \verb|\href{URL}{text}|
+		to embed hyperlinks into text? \pause
+		\href{https://www.example.com}{Like this!}
+	\end{frame}
+	
 	\section{And that's it!}
 	
 	\begin{frame}
 		\frametitle{Useful resources}
 		\begin{itemize}
-			\item \TeX{} StackExchange forum
-			\item Overleaf's \textit{own} \LaTeX{} tutorials (they're how \textbf{I} learnt \LaTeX{} back then)
-			\item r/\LaTeX{} Reddit forum
-			\item \href{https://www.tablesgenerator.com/}{Tables Generator for \LaTeX{}}
-			\item \href{https://en.wikibooks.org/wiki/LaTeX/Mathematics\#List_of_mathematical_symbols}{Wikibooks section listing all of the mathematical symbols you can use in \LaTeX{}, so that you don't have to remember them all.}
-			\item \href{https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}{The Comprehensive \LaTeX{} Symbols List}
+			\item<1-> \TeX{} StackExchange forum
+			\item<2-> Overleaf's \textit{own} \LaTeX{} tutorials (they're how \textbf{I} learnt \LaTeX{} back then)
+			\item<3-> r/\LaTeX{} Reddit forum
+			\item<4-> \href{https://www.tablesgenerator.com/}{Tables Generator for \LaTeX{}}
+			\item<5-> \href{https://en.wikibooks.org/wiki/LaTeX/Mathematics\#List_of_mathematical_symbols}{Wikibooks section listing all of the mathematical symbols you can use in \LaTeX{}, so that you don't have to remember them all.}
+			\item<6-> \href{https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}{The Comprehensive \LaTeX{} Symbols List}
 		\end{itemize}
 	\end{frame}
 \end{document}
